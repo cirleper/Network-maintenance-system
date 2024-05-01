@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leaves.pagehelpertest.dao.UserBindingAccountDao">
+
+    <select id="getUserIdByEmail" resultType="java.lang.Integer">
+        SELECT user_id
+        FROM user_binding_account
+        WHERE mail_account=#{email}
+    </select>
+
+    <select id="selectSameEmailCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM user_binding_account
+        WHERE mail_account=#{mailAccount}
+    </select>
+
+    <insert id="insertToRegister">
+        INSERT INTO user_binding_account(user_id,mail_account)
+        VALUES (#{userId},#{mailAccount})
+    </insert>
+
+    <delete id="deleteBindingAccountByUserId">
+        delete from user_binding_account
+        where user_id=#{userId}
+    </delete>
+</mapper>

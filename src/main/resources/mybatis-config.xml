@@ -1,0 +1,8 @@
+<configuration>
+    <!-- 其他配置 -->
+<!--已在application中配置-->
+<!--    <mappers>-->
+<!--        <mapper resource="mapper/UserMapper.xml"/>-->
+<!--        &lt;!&ndash; 如果有多个映射文件，可以继续添加其他的mapper元素 &ndash;&gt;-->
+<!--    </mappers>-->
+</configuration>

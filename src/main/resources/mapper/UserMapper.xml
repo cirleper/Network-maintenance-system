@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leaves.pagehelpertest.dao.UserDao">
+    <sql id="all">
+        user_id,
+        user_name,
+        password,
+        coded,
+        gid
+    </sql>
+
+    <select id="selectUserInformation" resultType="com.leaves.pagehelpertest.model.dox.UserDo">
+        select
+            <include refid="all" />
+        from user
+    </select>
+
+    <select id="selectUserByUserName" resultType="com.leaves.pagehelpertest.model.dox.UserDo">
+        select
+        <include refid="all" />
+        from user
+        where `user_name`=#{userName}
+    </select>
+
+    <select id="getVerfiyCodeByUserId" resultType="java.lang.String">
+        select coded
+        from user
+        where user_id=#{userId}
+    </select>
+
+    <select id="selectUserByNameAndPassword" resultType="com.leaves.pagehelpertest.model.dox.UserDo">
+        select *
+        from user
+        where user_name=#{userName} and `password`=#{password}
+    </select>
+
+    <select id="selectSameUserNameCount" resultType="java.lang.Integer">
+        select count(*)
+        from user
+        where user_name=#{userName}
+    </select>
+
+    <select id="selectCodeByUserName" resultType="java.lang.String">
+        select coded
+        from user
+        where user_name=#{userName}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO user(user_name,`password`,coded)
+        VALUES (#{userName},#{password},#{verfiyCode})
+    </insert>
+
+    <update id="updateVerfiyCode">
+        update user
+        set coded='1'
+        where user_id=#{userId}
+    </update>
+
+    <update id="updateUserInfo">
+        update user
+        set user_name=#{userName},password=#{password},coded=#{coded},gid=#{gid}
+        where user_id=#{userId}
+    </update>
+
+    <delete id="deleteUserInfoByUserId">
+        delete from user
+        where user_id=#{userId}
+    </delete>
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.leaves.pagehelpertest.dao.RepairRecordDao">
+    <insert id="insertRepairRecord">
+        insert into repair_records(adder,client_name,phone_number,register_time,location,note)
+        values (#{adder},#{clientName},#{phoneNumber},#{registerTime},#{location},#{note})
+    </insert>
+
+    <select id="selectFinishRecords" resultType="com.leaves.pagehelpertest.model.dox.RepairRecordDo">
+        select * from
+        repair_records
+        where status='yes'
+        ORDER BY finish_time DESC;
+    </select>
+
+    <select id="selectUNfinishRecords" resultType="com.leaves.pagehelpertest.model.dox.RepairRecordDo">
+        select *from
+        repair_records
+        where status='no'
+        ORDER BY register_time DESC;
+    </select>
+
+
+
+    <select id="selectRepairByUserId" resultType="com.leaves.pagehelpertest.model.dox.RepairRecordDo">
+        select *from
+        repair_records
+        where adder=#{userId};
+    </select>
+
+    <select id="selectFinishRepairByUserId" resultType="com.leaves.pagehelpertest.model.dox.RepairRecordDo">
+        select *from
+            repair_records
+        where adder=#{userId} and status='no';
+    </select>
+
+    <update id="updateStatus">
+        update repair_records
+        set status=#{status},finish_time=#{finishTime},reporter=#{reporter},solution=#{solution}
+        where id=#{recordId}
+    </update>
+
+    <update id="updateStatusByUserId">
+        update repair_records
+        set status=#{status},finish_time=#{finishTime},reporter=#{reporter}
+        where id=#{recordId} and adder=#{userId}
+    </update>
+
+    <update id="modifyByRecordId">
+        update repair_records
+        set location=#{location},client_name=#{clientName},phone_number=#{phoneNumber},note=#{note},solution=#{solution}
+        where id=#{recordId}
+    </update>
+
+    <delete id="deleteRecordByRecordId">
+        delete from repair_records
+        where id=#{recordId}
+    </delete>
+</mapper>
